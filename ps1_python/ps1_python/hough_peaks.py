@@ -7,32 +7,25 @@ def clip(idx):
     return int(max(idx, 0))
 
 
-# accumulator, thetas, rhos = hough_lines_acc.hough_lines_acc()
-
-
-def hough_peaks(H=None, numpeaks=1, threshold=100, nhood_size=5):
+def hough_peaks(H, numpeaks=1, threshold=100, nhood_size=5):
     # TODO
-    accumulator, thetas, rhos = hough_lines_acc.hough_lines_acc(
-        cv2.imread('../output/ps1-1-a-1.png', -1))
-    # 创建空白画布
-    w, h = 256, 256
-    mask = np.zeros((w, h), dtype=np.uint8)
-    for line in accumulator:
-        r, t = line[0]
-        a = np.cos(t)
-        b = np.sin(t)
-        x0 = a * r
-        y0 = b * r
-        x1 = int(x0 + 100 * (-b))
-        y1 = int(y0 + 100 * a)
-        x2 = int(x0 - 100 * (-b))
-        y2 = int(y0 - 100 * a)
-        cv2.line(mask, (x1, y1), (x2, y2), 255, 2)
-    cv2.imshow("mask", mask)
-    cv2.imwrite("../output/ps1-2-b-1.png", mask)
-    # cv2.imwrite("../output/ps1-2-a-1.png", mask)
-    cv2.waitKey()
+    peaks = np.zeros((numpeaks, 2), dtype=np.uint64)
+    temp_H = H.copy()
+    for i in range(numpeaks):
+        _, max_val, _, max_loc = cv2.minMaxLoc(temp_H)  # find maximum peak
+        if max_val > threshold:
+            peaks[i] = max_loc
+            (c, r) = max_loc
+            t = nhood_size // 2.0
+            temp_H[clip(r - t):int(r + t + 1), clip(c - t):int(c + t + 1)] = 0
+        else:
+            peaks = peaks[:i]
+            break
+    return peaks[:, ::-1]  # 将矩阵第二个维度逆
 
-# return peaks[:, ::-1]
 
-hough_peaks()
+# test
+# img = cv2.imread("../output/ps1-1-a-1.png", -1)
+# H, _, _ = hough_lines_acc.hough_lines_acc(img)
+# res = hough_peaks(H, 10)
+# print(res)
