@@ -1,0 +1,5 @@
+IDE:pycharm community 2020.2
+python:3.6.12
+opencv_python:3.4.2.2
+numpy:1.16.2
+matplotlib:3.3.2

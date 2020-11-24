@@ -1,11 +1,16 @@
 import cv2
 import numpy as np
 import time
-from hough_lines_acc import *
-from hough_peaks import *
-from hough_lines_draw import *
+import hough_lines_acc
+import hough_peaks
+import hough_lines_draw
+import utils
 from ps1_1 import *
-import matplotlib.pyplot as plt
+
+"""
+此文件为测试文件
+"""
+
 
 def ps1_2():
     start_time = time.time()
@@ -16,12 +21,9 @@ def ps1_2():
     # TODO
     # a)计算累加器数组
     H, thetas, rhos = hough_lines_acc.hough_lines_acc(edge_img)
-    plt.subplot(131)
-    plt.imshow(H, cmap="Greys_r")
-    plt.title("2a1")
-    cv2.imwrite("../output/ps1-2-a-1.png", H)
+    utils.img_show_write(H, "hough accumulator array", "../output/ps1-2-a-1.png")
     # b)求峰值并保存峰值图片
-    peaks = hough_peaks(H, 10)
+    peaks = hough_peaks.hough_peaks(H, 10)
     # peaks = np.array([[245, 0],
     #                   [245, 90],
     #                   [127, 0],
@@ -34,21 +36,14 @@ def ps1_2():
     for i in range(len(peaks)):
         y, x = peaks[i]
         peaks_mask = cv2.circle(peaks_mask, (x, y), 5, 125, 5)
-    plt.subplot(132)
-    plt.imshow(peaks_mask, cmap="Greys_r")
-    plt.title("2b1")
-    cv2.imwrite("../output/ps1-2-b-1.png", peaks_mask)
+    utils.img_show_write(peaks_mask, "../output/ps1-2-b-1.png", "peaks image")
     # c)原图像画线
-    mask = np.zeros((1000, 1000, 3))
-    green_lined = hough_lines_draw(ori_image_BGR, peaks=peaks)
-    plt.subplot(133)
-    plt.imshow(green_lined, cmap="Greys_r")
-    plt.title("2c1")
+    # mask = np.zeros((1000, 1000, 3))
+    green_lined = hough_lines_draw.hough_lines_draw(ori_image_BGR, peaks=peaks)
     cv2.imwrite("../output/ps1-2-c-1.png", green_lined)
     print('2) Time elapsed: %.3f s' % (time.time() - start_time))
-    plt.savefig("../output/myOutPut/ps1-2.png")
-    plt.show()
+    cv2.waitKey()
 
 
 # test
-# ps1_2()
+ps1_2()
