@@ -44,14 +44,14 @@ def ps1_3():
     plt.title("3c1")
     # c)原图像画线
     plt.subplot(235)
-        # 原始图像的BGR图像
+    # 原始图像的BGR图像
     ori_image_BGR = cv2.imread("../input/ps1-input0.png", 1)
     green_lined = hough_lines_draw(ori_image_BGR, peaks=peaks)
     plt.imshow(green_lined, cmap="Greys_r")
     cv2.imwrite("../output/ps1-3-c-2.png", green_lined)
     plt.title("3c2")
     plt.subplot(236)
-        # 在mask上画线
+    # 在mask上画线
     mask = np.zeros((1000, 1000, 3))
     green_lined_mask = hough_lines_draw(mask, peaks=peaks)
     plt.imshow(green_lined_mask, cmap="Greys_r")
@@ -60,6 +60,7 @@ def ps1_3():
     print('3) Time elapsed: %.3f s' % (time.time() - start_time))
     plt.savefig("../output/myOutPut/ps1-3.png")
     plt.show()
+
 
 # test
 # ps1_3()

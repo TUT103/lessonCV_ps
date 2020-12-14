@@ -12,9 +12,11 @@ def hough_lines_draw(img, peaks):
         cos_theta = np.cos(np.deg2rad(theta))
         if np.sin(theta) == 0:
             for y in range(row):
-                cv2.circle(img, (int(round(rho / np.cos(theta))), y), 2, (0, 255, 0), 2)
+                cv2.circle(img, (int(round(rho / np.cos(theta))), y), 2, (0, 255, 0), 1)
         else:
             for x in range(col):
                 y = -x * cos_theta / sin_theta + rho / sin_theta
-                cv2.circle(img, (x, int(round(y))), 2, (0, 255, 0), 2)
+                if not 0 <= y <= row:
+                    continue
+                cv2.circle(img, (x, int(round(y))), 2, (0, 255, 0), 1)
     return img

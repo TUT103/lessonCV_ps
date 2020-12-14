@@ -7,13 +7,11 @@ from hough_lines_draw import *
 from ps1_1 import *
 import matplotlib.pyplot as plt
 
+
 def ps1_2():
     start_time = time.time()
     # 拿到边界图像
     edge_img = ps1_1()
-    # 原始图像的BGR图像
-    ori_image_BGR = cv2.imread("../input/ps1-input0.png", 1)
-    # TODO
     # a)计算累加器数组
     H, thetas, rhos = hough_lines_acc.hough_lines_acc(edge_img)
     plt.subplot(131)
@@ -21,7 +19,7 @@ def ps1_2():
     plt.title("2a1")
     cv2.imwrite("../output/ps1-2-a-1.png", H)
     # b)求峰值并保存峰值图片
-    peaks = hough_peaks(H, 10)
+    peaks = hough_peaks(H, 10, threshold=220)
     # peaks = np.array([[245, 0],
     #                   [245, 90],
     #                   [127, 0],
@@ -39,7 +37,7 @@ def ps1_2():
     plt.title("2b1")
     cv2.imwrite("../output/ps1-2-b-1.png", peaks_mask)
     # c)原图像画线
-    mask = np.zeros((1000, 1000, 3))
+    ori_image_BGR = cv2.imread("../input/ps1-input0.png", 1)  # 原始图像的BGR图像
     green_lined = hough_lines_draw(ori_image_BGR, peaks=peaks)
     plt.subplot(133)
     plt.imshow(green_lined, cmap="Greys_r")
@@ -51,4 +49,4 @@ def ps1_2():
 
 
 # test
-# ps1_2()
+ps1_2()

@@ -28,10 +28,10 @@ def ps1_4():
     plt.title("4b1")
 
     #  4c: apply hough line detection to the smoothed image
-        # 高亮显示H
+    # 高亮显示H
     plt.subplot(223)
     H, thetas, rhos = hough_lines_acc.hough_lines_acc(edge_gaussian_img)
-    peaks = hough_peaks.hough_peaks(H, 10)
+    peaks = hough_peaks.hough_peaks(H, 10, 120)
     print("ps1-4计算出的peaks值", peaks)
     peaks_x, peaks_y = H.shape[0], H.shape[1]
     peaks_mask = np.zeros((peaks_x, peaks_y))
@@ -41,7 +41,7 @@ def ps1_4():
     plt.imshow(peaks_mask, cmap="Greys_r")
     cv2.imwrite("../output/ps1-4-c-1.png", peaks_mask)
 
-        # 显示出笔的轮廓
+    # 显示出笔的轮廓
     plt.subplot(224)
     # mask = np.zeros((1000, 1000, 3))
     gaussian_img_RGB = cv2.cvtColor(gaussian_img_grey, cv2.COLOR_GRAY2RGB)
@@ -55,4 +55,4 @@ def ps1_4():
 
 
 # test
-ps1_4()
+# ps1_4()

@@ -12,7 +12,7 @@ def hough_peaks(H, numpeaks=1, threshold=100, nhood_size=5):
     peaks = np.zeros((numpeaks, 2), dtype=np.uint64)
     temp_H = H.copy()
     for i in range(numpeaks):
-        _, max_val, _, max_loc = cv2.minMaxLoc(temp_H)  # find maximum peak
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(temp_H)  # find maximum peak
         if max_val > threshold:
             peaks[i] = max_loc
             (c, r) = max_loc
@@ -22,7 +22,6 @@ def hough_peaks(H, numpeaks=1, threshold=100, nhood_size=5):
             peaks = peaks[:i]
             break
     return peaks[:, ::-1]  # 将矩阵第二个维度逆
-
 
 # test
 # img = cv2.imread("../output/ps1-1-a-1.png", -1)

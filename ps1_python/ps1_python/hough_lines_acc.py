@@ -5,7 +5,7 @@ import cv2
 def hough_lines_acc(img):
     # 1.边界检测Canny
     # 2.创建rho和thetas的范围
-    thetas = np.deg2rad(np.arange(0 ,360))  # 得到长度为180,0度到180度的弧度值（0-pi）
+    thetas = np.deg2rad(np.arange(0, 360))  # 得到长度为180,0度到360度的弧度值（即0-2*pi）
     row, cols = img.shape
     diag_len = np.ceil(np.sqrt(row ** 2 + cols ** 2))  # 图片对角线的长度
     rho_res = np.linspace(-diag_len, diag_len, int(2 * diag_len))  # rho的大小是从-rho到rho
@@ -15,8 +15,8 @@ def hough_lines_acc(img):
     num_theta = len(thetas)
     # 3.确定acc的范围
     accumulator = np.zeros((int(2 * diag_len), num_theta), dtype=np.uint64)  # 二维矩阵，长宽分别是2倍rho和thetas
-    y_inx, x_inx = np.nonzero(img)  # 避免做无用功
-    # 4.投票并寻找峰值
+    y_inx, x_inx = np.nonzero(img)  # 避免做无用功，仅查找有用的像素
+    # 4.投票
     for i in range(len(x_inx)):
         x = x_inx[i]
         y = y_inx[i]
