@@ -1,0 +1,13 @@
+Question：Text response describing your accumulator bin sizes, 
+threshold and neighborhood size parameters for finding peaks, 
+and why/how you picked those.
+ 
+Answer：
+cv2.Canny 参数：threshold1=150, threshold2=150    
+
+hough_lines_acc参数： img=被cv2.Canny处理过的边缘图像,
+                      thetas取值0到360度
+
+hough_peaks参数：H, numpeaks=10, threshold=220, nhood_size=5
+
+

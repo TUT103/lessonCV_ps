@@ -14,6 +14,7 @@ def ps1_2():
     edge_img = ps1_1()
     # a)计算累加器数组
     H, thetas, rhos = hough_lines_acc.hough_lines_acc(edge_img)
+
     plt.subplot(131)
     plt.imshow(H, cmap="Greys_r")
     plt.title("2a1")
@@ -32,6 +33,7 @@ def ps1_2():
     for i in range(len(peaks)):
         y, x = peaks[i]
         peaks_mask = cv2.circle(peaks_mask, (x, y), 5, 125, 5)
+
     plt.subplot(132)
     plt.imshow(peaks_mask, cmap="Greys_r")
     plt.title("2b1")
@@ -39,6 +41,7 @@ def ps1_2():
     # c)原图像画线
     ori_image_BGR = cv2.imread("../input/ps1-input0.png", 1)  # 原始图像的BGR图像
     green_lined = hough_lines_draw(ori_image_BGR, peaks=peaks)
+
     plt.subplot(133)
     plt.imshow(green_lined, cmap="Greys_r")
     plt.title("2c1")

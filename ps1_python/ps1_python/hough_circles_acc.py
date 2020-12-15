@@ -23,10 +23,10 @@ def hough_circles_acc(edge_img, radius):
     return accumulator
 
 
-# 查找指定半径的圆的圆心坐标
+# 查找指定半径圆的圆心坐标
 def hough_peaks_circle(img, radius, threshold, nhood_size=5):
     acc = hough_circles_acc(img, radius)
-    peaks = hough_peaks(acc, 30, threshold=threshold, nhood_size=nhood_size)
+    peaks = hough_peaks(acc, numpeaks=10, threshold=threshold, nhood_size=nhood_size)
     print("半径：", radius, "，peaks：", peaks)
     peaks = peaks.tolist()  # 将NumPy形式转换为list
     for each in peaks:  # 为每一个圆心坐标加上半径

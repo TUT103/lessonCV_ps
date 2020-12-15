@@ -1,0 +1,15 @@
+Question：
+Likely the last step found lines that are not the boundaries of the pens. What are the problems present?
+Output: Text response
+
+Answer：
+hough_peaks函数共有四个参数，分别为H、 numpeaks、 threshold、 nhood_size,其代表的意义如下：
+H为通过hough_line_acc函数计算出的峰值，可以理解为平原上的山峰，而hough_peaks函数的作用便是找到在平原中树立的的“山峰”，并记录下其“高度”
+numpeaks代表“山峰”的最大数量，当查找的“山峰”数量达到numpeaks便停止查找、
+threshold，“山峰”的高度大于threshold其“高度”才会被记录
+nhood_size，当一座“山峰”高度被记录下来时，该“山峰”周围会被的区域会被“推平”，该“山峰”附近的区域也会变成“平原”（即高度为0），如此以来寻找下一座“山峰”时，该山峰不会被再次计算
+
+因此接下来需要调整hough_peaks(H, numpeaks, threshold, nhood_size)中四个属性的值
+为了达到更好的效果，需要在此之前调整cv2.GaussianBlur和cv2.Canny中的值
+
+把参数设置完毕便可以达到最理想的效果

@@ -1,0 +1,12 @@
+Question：
+Describe what you had to do to find circles
+
+Answer：
+步骤1：使用hough_circles_acc，作用为：输入图像和要查找的半径，输出投票过后的accumulator
+步骤2：根据步骤1返回的accumulator，使用hough_peaks函数寻找“平原”上的“山峰”
+经过步骤1和步骤2，可以得到图片中圆的abr信息
+步骤3：根据前两步得到的图片中圆的abr信息，画出圆形
+
+第5题有点类似第2题，不同点有2：
+不同点1：圆的投票函数hough_circles_acc比直线的投票函数hough_lines_acc更复杂
+不同点2：对于参数的调整更为重要，具体为cv2.Canny函数、cv2.GaussianBlur函数和hough_peaks函数的参数，参数一定要调对才能得到正确的结果
